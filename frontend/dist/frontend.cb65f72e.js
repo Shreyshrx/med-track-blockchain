@@ -207,7 +207,7 @@
       });
     }
   }
-})({"icAAj":[function(require,module,exports,__globalThis) {
+})({"9QjKE":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
@@ -731,255 +731,388 @@ var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _qrscanner = require("./components/QRScanner");
 var _qrscannerDefault = parcelHelpers.interopDefault(_qrscanner);
+var _header = require("./components/Header");
+var _headerDefault = parcelHelpers.interopDefault(_header);
+var _batchInput = require("./components/BatchInput");
+var _batchInputDefault = parcelHelpers.interopDefault(_batchInput);
+var _medicineCard = require("./components/MedicineCard");
+var _medicineCardDefault = parcelHelpers.interopDefault(_medicineCard);
+var _statusBanner = require("./components/StatusBanner");
+var _statusBannerDefault = parcelHelpers.interopDefault(_statusBanner);
+var _appCss = require("./App.css");
 var _s = $RefreshSig$();
 function App() {
     _s();
     const [batchId, setBatchId] = (0, _react.useState)("");
     const [result, setResult] = (0, _react.useState)(null);
+    const [loading, setLoading] = (0, _react.useState)(false);
+    const [error, setError] = (0, _react.useState)(null);
     const verifyMedicine = async ()=>{
-        if (!batchId) return;
+        if (!batchId.trim()) return;
+        setLoading(true);
+        setError(null);
+        setResult(null);
         try {
             const res = await (0, _axiosDefault.default).get(`http://localhost:5000/verify/${batchId}`);
             setResult(res.data);
         } catch (err) {
+            setError("Unable to fetch medicine data. Please check the Batch ID.");
             console.error(err);
+        } finally{
+            setLoading(false);
         }
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        style: {
-            padding: 40,
-            fontFamily: "Arial"
-        },
+        className: "app-container",
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                children: "\uD83D\uDC8A MED-TRACK Medicine Verification"
-            }, void 0, false, {
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _headerDefault.default), {}, void 0, false, {
                 fileName: "App.js",
-                lineNumber: 28,
-                columnNumber: 1
+                lineNumber: 35,
+                columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                children: "Enter Batch ID"
-            }, void 0, false, {
-                fileName: "App.js",
-                lineNumber: 30,
-                columnNumber: 1
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                value: batchId,
-                onChange: (e)=>setBatchId(e.target.value),
-                placeholder: "Batch ID",
-                style: {
-                    padding: "8px"
-                }
-            }, void 0, false, {
-                fileName: "App.js",
-                lineNumber: 32,
-                columnNumber: 1
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                onClick: verifyMedicine,
-                style: {
-                    marginLeft: "10px"
-                },
-                children: "Verify"
-            }, void 0, false, {
-                fileName: "App.js",
-                lineNumber: 39,
-                columnNumber: 1
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                style: {
-                    marginTop: "30px"
-                },
-                children: "Scan QR Code"
-            }, void 0, false, {
-                fileName: "App.js",
-                lineNumber: 43,
-                columnNumber: 1
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _qrscannerDefault.default), {
-                setBatchId: setBatchId
-            }, void 0, false, {
-                fileName: "App.js",
-                lineNumber: 45,
-                columnNumber: 1
-            }, this),
-            result && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                style: {
-                    marginTop: 30
-                },
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
+                className: "main-content",
                 children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                        children: [
-                            "Status: ",
-                            result.status
-                        ]
-                    }, void 0, true, {
-                        fileName: "App.js",
-                        lineNumber: 53,
-                        columnNumber: 1
-                    }, this),
-                    result.medicine ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("b", {
-                                        children: "Batch:"
-                                    }, void 0, false, {
-                                        fileName: "App.js",
-                                        lineNumber: 59,
-                                        columnNumber: 4
-                                    }, this),
-                                    " ",
-                                    result.medicine.batchId
-                                ]
-                            }, void 0, true, {
-                                fileName: "App.js",
-                                lineNumber: 59,
-                                columnNumber: 1
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("b", {
-                                        children: "Name:"
-                                    }, void 0, false, {
-                                        fileName: "App.js",
-                                        lineNumber: 60,
-                                        columnNumber: 4
-                                    }, this),
-                                    " ",
-                                    result.medicine.name
-                                ]
-                            }, void 0, true, {
-                                fileName: "App.js",
-                                lineNumber: 60,
-                                columnNumber: 1
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("b", {
-                                        children: "Manufacturer:"
-                                    }, void 0, false, {
-                                        fileName: "App.js",
-                                        lineNumber: 61,
-                                        columnNumber: 4
-                                    }, this),
-                                    " ",
-                                    result.medicine.manufacturer
-                                ]
-                            }, void 0, true, {
-                                fileName: "App.js",
-                                lineNumber: 61,
-                                columnNumber: 1
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                                style: {
-                                    marginTop: "25px"
-                                },
-                                children: "\uD83D\uDCE6 Supply Chain Timeline"
-                            }, void 0, false, {
-                                fileName: "App.js",
-                                lineNumber: 65,
-                                columnNumber: 1
-                            }, this),
-                            result.medicine.history && result.medicine.history.map((step, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                    style: {
-                                        border: "1px solid #ccc",
-                                        padding: "10px",
-                                        margin: "8px 0",
-                                        borderRadius: "6px",
-                                        background: "#f9f9f9"
-                                    },
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("b", {
-                                                    children: "Stage:"
-                                                }, void 0, false, {
-                                                    fileName: "App.js",
-                                                    lineNumber: 80,
-                                                    columnNumber: 4
-                                                }, this),
-                                                " ",
-                                                step.stage
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "App.js",
-                                            lineNumber: 80,
-                                            columnNumber: 1
-                                        }, this),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("b", {
-                                                    children: "Location:"
-                                                }, void 0, false, {
-                                                    fileName: "App.js",
-                                                    lineNumber: 81,
-                                                    columnNumber: 4
-                                                }, this),
-                                                " ",
-                                                step.location
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "App.js",
-                                            lineNumber: 81,
-                                            columnNumber: 1
-                                        }, this),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("b", {
-                                                    children: "Time:"
-                                                }, void 0, false, {
-                                                    fileName: "App.js",
-                                                    lineNumber: 82,
-                                                    columnNumber: 4
-                                                }, this),
-                                                " ",
-                                                step.time
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "App.js",
-                                            lineNumber: 82,
-                                            columnNumber: 1
-                                        }, this)
-                                    ]
-                                }, index, true, {
-                                    fileName: "App.js",
-                                    lineNumber: 69,
-                                    columnNumber: 1
-                                }, this))
-                        ]
-                    }, void 0, true, {
-                        fileName: "App.js",
-                        lineNumber: 57,
-                        columnNumber: 1
-                    }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        children: "Medicine not found."
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _batchInputDefault.default), {
+                        batchId: batchId,
+                        setBatchId: setBatchId,
+                        onVerify: verifyMedicine,
+                        loading: loading
                     }, void 0, false, {
                         fileName: "App.js",
-                        lineNumber: 92,
-                        columnNumber: 1
+                        lineNumber: 38,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "scanner-section",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "section-label",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        className: "section-icon",
+                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+                                            xmlns: "http://www.w3.org/2000/svg",
+                                            width: "18",
+                                            height: "18",
+                                            viewBox: "0 0 24 24",
+                                            fill: "none",
+                                            stroke: "currentColor",
+                                            strokeWidth: "2",
+                                            strokeLinecap: "round",
+                                            strokeLinejoin: "round",
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("rect", {
+                                                    width: "5",
+                                                    height: "5",
+                                                    x: "3",
+                                                    y: "3",
+                                                    rx: "1"
+                                                }, void 0, false, {
+                                                    fileName: "App.js",
+                                                    lineNumber: 50,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("rect", {
+                                                    width: "5",
+                                                    height: "5",
+                                                    x: "16",
+                                                    y: "3",
+                                                    rx: "1"
+                                                }, void 0, false, {
+                                                    fileName: "App.js",
+                                                    lineNumber: 50,
+                                                    columnNumber: 64
+                                                }, this),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("rect", {
+                                                    width: "5",
+                                                    height: "5",
+                                                    x: "3",
+                                                    y: "16",
+                                                    rx: "1"
+                                                }, void 0, false, {
+                                                    fileName: "App.js",
+                                                    lineNumber: 51,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                    d: "M21 16h-3a2 2 0 0 0-2 2v3"
+                                                }, void 0, false, {
+                                                    fileName: "App.js",
+                                                    lineNumber: 51,
+                                                    columnNumber: 65
+                                                }, this),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                    d: "M21 21v.01"
+                                                }, void 0, false, {
+                                                    fileName: "App.js",
+                                                    lineNumber: 52,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                    d: "M12 7v3a2 2 0 0 1-2 2H7"
+                                                }, void 0, false, {
+                                                    fileName: "App.js",
+                                                    lineNumber: 52,
+                                                    columnNumber: 39
+                                                }, this),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                    d: "M3 12h.01"
+                                                }, void 0, false, {
+                                                    fileName: "App.js",
+                                                    lineNumber: 52,
+                                                    columnNumber: 74
+                                                }, this),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                    d: "M12 3h.01"
+                                                }, void 0, false, {
+                                                    fileName: "App.js",
+                                                    lineNumber: 53,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                    d: "M12 16v.01"
+                                                }, void 0, false, {
+                                                    fileName: "App.js",
+                                                    lineNumber: 53,
+                                                    columnNumber: 38
+                                                }, this),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                    d: "M16 12h1"
+                                                }, void 0, false, {
+                                                    fileName: "App.js",
+                                                    lineNumber: 53,
+                                                    columnNumber: 60
+                                                }, this),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                    d: "M21 12v.01"
+                                                }, void 0, false, {
+                                                    fileName: "App.js",
+                                                    lineNumber: 53,
+                                                    columnNumber: 80
+                                                }, this),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                    d: "M12 21v-1"
+                                                }, void 0, false, {
+                                                    fileName: "App.js",
+                                                    lineNumber: 54,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "App.js",
+                                            lineNumber: 48,
+                                            columnNumber: 15
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "App.js",
+                                        lineNumber: 47,
+                                        columnNumber: 13
+                                    }, this),
+                                    "Scan QR Code"
+                                ]
+                            }, void 0, true, {
+                                fileName: "App.js",
+                                lineNumber: 46,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _qrscannerDefault.default), {
+                                setBatchId: setBatchId
+                            }, void 0, false, {
+                                fileName: "App.js",
+                                lineNumber: 59,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "App.js",
+                        lineNumber: 45,
+                        columnNumber: 9
+                    }, this),
+                    error && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "error-banner",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                width: "18",
+                                height: "18",
+                                viewBox: "0 0 24 24",
+                                fill: "none",
+                                stroke: "currentColor",
+                                strokeWidth: "2",
+                                strokeLinecap: "round",
+                                strokeLinejoin: "round",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("circle", {
+                                        cx: "12",
+                                        cy: "12",
+                                        r: "10"
+                                    }, void 0, false, {
+                                        fileName: "App.js",
+                                        lineNumber: 66,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("line", {
+                                        x1: "12",
+                                        x2: "12",
+                                        y1: "8",
+                                        y2: "12"
+                                    }, void 0, false, {
+                                        fileName: "App.js",
+                                        lineNumber: 66,
+                                        columnNumber: 47
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("line", {
+                                        x1: "12",
+                                        x2: "12.01",
+                                        y1: "16",
+                                        y2: "16"
+                                    }, void 0, false, {
+                                        fileName: "App.js",
+                                        lineNumber: 67,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "App.js",
+                                lineNumber: 64,
+                                columnNumber: 13
+                            }, this),
+                            error
+                        ]
+                    }, void 0, true, {
+                        fileName: "App.js",
+                        lineNumber: 63,
+                        columnNumber: 11
+                    }, this),
+                    loading && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "loading-state",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "spinner"
+                            }, void 0, false, {
+                                fileName: "App.js",
+                                lineNumber: 75,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                children: "Verifying batch..."
+                            }, void 0, false, {
+                                fileName: "App.js",
+                                lineNumber: 76,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "App.js",
+                        lineNumber: 74,
+                        columnNumber: 11
+                    }, this),
+                    result && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "result-section",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _statusBannerDefault.default), {
+                                status: result.status
+                            }, void 0, false, {
+                                fileName: "App.js",
+                                lineNumber: 82,
+                                columnNumber: 13
+                            }, this),
+                            result.medicine ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _medicineCardDefault.default), {
+                                medicine: result.medicine
+                            }, void 0, false, {
+                                fileName: "App.js",
+                                lineNumber: 84,
+                                columnNumber: 15
+                            }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "not-found",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "40",
+                                        height: "40",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        strokeWidth: "1.5",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                d: "M9.88 9.88a3 3 0 1 0 4.24 4.24"
+                                            }, void 0, false, {
+                                                fileName: "App.js",
+                                                lineNumber: 89,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                d: "M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+                                            }, void 0, false, {
+                                                fileName: "App.js",
+                                                lineNumber: 90,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                d: "M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+                                            }, void 0, false, {
+                                                fileName: "App.js",
+                                                lineNumber: 91,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("line", {
+                                                x1: "2",
+                                                x2: "22",
+                                                y1: "2",
+                                                y2: "22"
+                                            }, void 0, false, {
+                                                fileName: "App.js",
+                                                lineNumber: 92,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "App.js",
+                                        lineNumber: 87,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                        children: "No medicine record found for this Batch ID."
+                                    }, void 0, false, {
+                                        fileName: "App.js",
+                                        lineNumber: 94,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "App.js",
+                                lineNumber: 86,
+                                columnNumber: 15
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "App.js",
+                        lineNumber: 81,
+                        columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "App.js",
-                lineNumber: 51,
-                columnNumber: 1
+                lineNumber: 37,
+                columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "App.js",
-        lineNumber: 26,
-        columnNumber: 1
+        lineNumber: 34,
+        columnNumber: 5
     }, this);
 }
-_s(App, "w8mhnRoGdJHD/KE293xcHsdJ5fE=");
+_s(App, "xDEwqlhUzhYfWAJZlrbOhVixNws=");
 _c = App;
 const root = (0, _clientDefault.default).createRoot(document.getElementById("root"));
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "App.js",
-    lineNumber: 107,
+    lineNumber: 105,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -990,7 +1123,7 @@ $RefreshReg$(_c, "App");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-dom/client":"hrvwu","axios":"kooH4","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","./components/QRScanner":"77eLb"}],"dVPUn":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","react-dom/client":"hrvwu","axios":"kooH4","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","./components/QRScanner":"77eLb","./components/Header":"7rYoH","./components/BatchInput":"fEScF","./components/MedicineCard":"6Ok0S","./components/StatusBanner":"hBUgL","./App.css":"7g3a6"}],"dVPUn":[function(require,module,exports,__globalThis) {
 'use strict';
 module.exports = require("ee51401569654d91");
 
@@ -64928,6 +65061,1016 @@ var CameraZoomUi = function() {
     return CameraZoomUi;
 }();
 
-},{"./base":"bwwWr","../../strings":"7IG6v","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["icAAj","blcJa"], "blcJa", "parcelRequire9b77", {}, null, null, "http://localhost:1234")
+},{"./base":"bwwWr","../../strings":"7IG6v","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"7rYoH":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$a815 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$a815.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$a815.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>Header);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+function Header() {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("header", {
+        className: "header",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "header-brand",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "header-icon",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "20",
+                            height: "20",
+                            viewBox: "0 0 24 24",
+                            fill: "none",
+                            stroke: "currentColor",
+                            strokeWidth: "2",
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                    d: "m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"
+                                }, void 0, false, {
+                                    fileName: "components/Header.js",
+                                    lineNumber: 11,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                    d: "m8.5 8.5 7 7"
+                                }, void 0, false, {
+                                    fileName: "components/Header.js",
+                                    lineNumber: 12,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "components/Header.js",
+                            lineNumber: 9,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "components/Header.js",
+                        lineNumber: 7,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        className: "header-title",
+                        children: [
+                            "MED",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                children: "-"
+                            }, void 0, false, {
+                                fileName: "components/Header.js",
+                                lineNumber: 16,
+                                columnNumber: 14
+                            }, this),
+                            "TRACK"
+                        ]
+                    }, void 0, true, {
+                        fileName: "components/Header.js",
+                        lineNumber: 15,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "components/Header.js",
+                lineNumber: 6,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "header-badge",
+                children: "Verification Portal"
+            }, void 0, false, {
+                fileName: "components/Header.js",
+                lineNumber: 19,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "components/Header.js",
+        lineNumber: 5,
+        columnNumber: 5
+    }, this);
+}
+_c = Header;
+var _c;
+$RefreshReg$(_c, "Header");
+
+  $parcel$ReactRefreshHelpers$a815.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"fEScF":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$e7ea = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$e7ea.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$e7ea.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>BatchInput);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+function BatchInput({ batchId, setBatchId, onVerify, loading }) {
+    const handleKeyDown = (e)=>{
+        if (e.key === "Enter") onVerify();
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "batch-input-card",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "section-label",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        className: "section-icon",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "18",
+                            height: "18",
+                            viewBox: "0 0 24 24",
+                            fill: "none",
+                            stroke: "currentColor",
+                            strokeWidth: "2",
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("circle", {
+                                    cx: "11",
+                                    cy: "11",
+                                    r: "8"
+                                }, void 0, false, {
+                                    fileName: "components/BatchInput.js",
+                                    lineNumber: 15,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                    d: "m21 21-4.3-4.3"
+                                }, void 0, false, {
+                                    fileName: "components/BatchInput.js",
+                                    lineNumber: 15,
+                                    columnNumber: 44
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "components/BatchInput.js",
+                            lineNumber: 13,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "components/BatchInput.js",
+                        lineNumber: 11,
+                        columnNumber: 9
+                    }, this),
+                    "Verify by Batch ID"
+                ]
+            }, void 0, true, {
+                fileName: "components/BatchInput.js",
+                lineNumber: 10,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "input-row",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        className: "batch-input-field",
+                        value: batchId,
+                        onChange: (e)=>setBatchId(e.target.value),
+                        onKeyDown: handleKeyDown,
+                        placeholder: "e.g. BATCH-20240315-XY9"
+                    }, void 0, false, {
+                        fileName: "components/BatchInput.js",
+                        lineNumber: 22,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        className: "verify-btn",
+                        onClick: onVerify,
+                        disabled: loading || !batchId.trim(),
+                        children: loading ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "spinner",
+                                    style: {
+                                        width: 16,
+                                        height: 16,
+                                        borderWidth: 2
+                                    }
+                                }, void 0, false, {
+                                    fileName: "components/BatchInput.js",
+                                    lineNumber: 36,
+                                    columnNumber: 15
+                                }, this),
+                                "Checking..."
+                            ]
+                        }, void 0, true) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "16",
+                                    height: "16",
+                                    viewBox: "0 0 24 24",
+                                    fill: "none",
+                                    stroke: "currentColor",
+                                    strokeWidth: "2.5",
+                                    strokeLinecap: "round",
+                                    strokeLinejoin: "round",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                            d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+                                        }, void 0, false, {
+                                            fileName: "components/BatchInput.js",
+                                            lineNumber: 44,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                            d: "m9 12 2 2 4-4"
+                                        }, void 0, false, {
+                                            fileName: "components/BatchInput.js",
+                                            lineNumber: 45,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "components/BatchInput.js",
+                                    lineNumber: 42,
+                                    columnNumber: 15
+                                }, this),
+                                "Verify"
+                            ]
+                        }, void 0, true)
+                    }, void 0, false, {
+                        fileName: "components/BatchInput.js",
+                        lineNumber: 29,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "components/BatchInput.js",
+                lineNumber: 21,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "components/BatchInput.js",
+        lineNumber: 9,
+        columnNumber: 5
+    }, this);
+}
+_c = BatchInput;
+var _c;
+$RefreshReg$(_c, "BatchInput");
+
+  $parcel$ReactRefreshHelpers$e7ea.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"6Ok0S":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$5c2c = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$5c2c.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5c2c.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>MedicineCard);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+function TimelineStep({ step, index }) {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "timeline-step",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "timeline-dot",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    width: "14",
+                    height: "14",
+                    viewBox: "0 0 24 24",
+                    fill: "none",
+                    stroke: "currentColor",
+                    strokeWidth: "2.5",
+                    strokeLinecap: "round",
+                    strokeLinejoin: "round",
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                            d: "m7.5 4.27 9 5.15"
+                        }, void 0, false, {
+                            fileName: "components/MedicineCard.js",
+                            lineNumber: 10,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                            d: "M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+                        }, void 0, false, {
+                            fileName: "components/MedicineCard.js",
+                            lineNumber: 10,
+                            columnNumber: 39
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                            d: "m3.3 7 8.7 5 8.7-5"
+                        }, void 0, false, {
+                            fileName: "components/MedicineCard.js",
+                            lineNumber: 11,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                            d: "M12 22V12"
+                        }, void 0, false, {
+                            fileName: "components/MedicineCard.js",
+                            lineNumber: 11,
+                            columnNumber: 41
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "components/MedicineCard.js",
+                    lineNumber: 8,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "components/MedicineCard.js",
+                lineNumber: 6,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "timeline-content",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "timeline-stage",
+                        children: step.stage
+                    }, void 0, false, {
+                        fileName: "components/MedicineCard.js",
+                        lineNumber: 15,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "timeline-meta",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                className: "timeline-meta-item",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "12",
+                                        height: "12",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        strokeWidth: "2",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                d: "M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
+                                            }, void 0, false, {
+                                                fileName: "components/MedicineCard.js",
+                                                lineNumber: 21,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("circle", {
+                                                cx: "12",
+                                                cy: "10",
+                                                r: "3"
+                                            }, void 0, false, {
+                                                fileName: "components/MedicineCard.js",
+                                                lineNumber: 21,
+                                                columnNumber: 73
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "components/MedicineCard.js",
+                                        lineNumber: 19,
+                                        columnNumber: 13
+                                    }, this),
+                                    step.location
+                                ]
+                            }, void 0, true, {
+                                fileName: "components/MedicineCard.js",
+                                lineNumber: 17,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                className: "timeline-meta-item",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "12",
+                                        height: "12",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        strokeWidth: "2",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("circle", {
+                                                cx: "12",
+                                                cy: "12",
+                                                r: "10"
+                                            }, void 0, false, {
+                                                fileName: "components/MedicineCard.js",
+                                                lineNumber: 29,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("polyline", {
+                                                points: "12 6 12 12 16 14"
+                                            }, void 0, false, {
+                                                fileName: "components/MedicineCard.js",
+                                                lineNumber: 29,
+                                                columnNumber: 47
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "components/MedicineCard.js",
+                                        lineNumber: 27,
+                                        columnNumber: 13
+                                    }, this),
+                                    step.time
+                                ]
+                            }, void 0, true, {
+                                fileName: "components/MedicineCard.js",
+                                lineNumber: 25,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "components/MedicineCard.js",
+                        lineNumber: 16,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "components/MedicineCard.js",
+                lineNumber: 14,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "components/MedicineCard.js",
+        lineNumber: 5,
+        columnNumber: 5
+    }, this);
+}
+_c = TimelineStep;
+function MedicineCard({ medicine }) {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "medicine-card",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "medicine-card-header",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "medicine-card-icon",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "24",
+                            height: "24",
+                            viewBox: "0 0 24 24",
+                            fill: "none",
+                            stroke: "currentColor",
+                            strokeWidth: "2",
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                    d: "m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"
+                                }, void 0, false, {
+                                    fileName: "components/MedicineCard.js",
+                                    lineNumber: 47,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                    d: "m8.5 8.5 7 7"
+                                }, void 0, false, {
+                                    fileName: "components/MedicineCard.js",
+                                    lineNumber: 48,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "components/MedicineCard.js",
+                            lineNumber: 45,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "components/MedicineCard.js",
+                        lineNumber: 43,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "medicine-card-title",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                                children: medicine.name
+                            }, void 0, false, {
+                                fileName: "components/MedicineCard.js",
+                                lineNumber: 52,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                children: [
+                                    "Batch #",
+                                    medicine.batchId
+                                ]
+                            }, void 0, true, {
+                                fileName: "components/MedicineCard.js",
+                                lineNumber: 53,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "components/MedicineCard.js",
+                        lineNumber: 51,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "components/MedicineCard.js",
+                lineNumber: 42,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "medicine-card-body",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "info-grid",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "info-item",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        className: "info-label",
+                                        children: "Manufacturer"
+                                    }, void 0, false, {
+                                        fileName: "components/MedicineCard.js",
+                                        lineNumber: 60,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        className: "info-value",
+                                        children: medicine.manufacturer
+                                    }, void 0, false, {
+                                        fileName: "components/MedicineCard.js",
+                                        lineNumber: 61,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "components/MedicineCard.js",
+                                lineNumber: 59,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "info-item",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        className: "info-label",
+                                        children: "Batch ID"
+                                    }, void 0, false, {
+                                        fileName: "components/MedicineCard.js",
+                                        lineNumber: 64,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        className: "info-value",
+                                        style: {
+                                            fontFamily: "'DM Mono', monospace",
+                                            fontSize: 13
+                                        },
+                                        children: medicine.batchId
+                                    }, void 0, false, {
+                                        fileName: "components/MedicineCard.js",
+                                        lineNumber: 65,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "components/MedicineCard.js",
+                                lineNumber: 63,
+                                columnNumber: 11
+                            }, this),
+                            medicine.expiry && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "info-item",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        className: "info-label",
+                                        children: "Expiry Date"
+                                    }, void 0, false, {
+                                        fileName: "components/MedicineCard.js",
+                                        lineNumber: 71,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        className: "info-value",
+                                        children: medicine.expiry
+                                    }, void 0, false, {
+                                        fileName: "components/MedicineCard.js",
+                                        lineNumber: 72,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "components/MedicineCard.js",
+                                lineNumber: 70,
+                                columnNumber: 13
+                            }, this),
+                            medicine.dosage && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "info-item",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        className: "info-label",
+                                        children: "Dosage"
+                                    }, void 0, false, {
+                                        fileName: "components/MedicineCard.js",
+                                        lineNumber: 77,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        className: "info-value",
+                                        children: medicine.dosage
+                                    }, void 0, false, {
+                                        fileName: "components/MedicineCard.js",
+                                        lineNumber: 78,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "components/MedicineCard.js",
+                                lineNumber: 76,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "components/MedicineCard.js",
+                        lineNumber: 58,
+                        columnNumber: 9
+                    }, this),
+                    medicine.history && medicine.history.length > 0 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "timeline-title",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "14",
+                                        height: "14",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        strokeWidth: "2",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                d: "M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"
+                                            }, void 0, false, {
+                                                fileName: "components/MedicineCard.js",
+                                                lineNumber: 89,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                d: "M15 18H9"
+                                            }, void 0, false, {
+                                                fileName: "components/MedicineCard.js",
+                                                lineNumber: 90,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                                                d: "M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"
+                                            }, void 0, false, {
+                                                fileName: "components/MedicineCard.js",
+                                                lineNumber: 90,
+                                                columnNumber: 37
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("circle", {
+                                                cx: "17",
+                                                cy: "18",
+                                                r: "2"
+                                            }, void 0, false, {
+                                                fileName: "components/MedicineCard.js",
+                                                lineNumber: 91,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("circle", {
+                                                cx: "7",
+                                                cy: "18",
+                                                r: "2"
+                                            }, void 0, false, {
+                                                fileName: "components/MedicineCard.js",
+                                                lineNumber: 91,
+                                                columnNumber: 48
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "components/MedicineCard.js",
+                                        lineNumber: 87,
+                                        columnNumber: 15
+                                    }, this),
+                                    "Supply Chain Timeline"
+                                ]
+                            }, void 0, true, {
+                                fileName: "components/MedicineCard.js",
+                                lineNumber: 85,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "timeline",
+                                children: medicine.history.map((step, index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(TimelineStep, {
+                                        step: step,
+                                        index: index
+                                    }, index, false, {
+                                        fileName: "components/MedicineCard.js",
+                                        lineNumber: 97,
+                                        columnNumber: 17
+                                    }, this))
+                            }, void 0, false, {
+                                fileName: "components/MedicineCard.js",
+                                lineNumber: 95,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true)
+                ]
+            }, void 0, true, {
+                fileName: "components/MedicineCard.js",
+                lineNumber: 57,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "components/MedicineCard.js",
+        lineNumber: 41,
+        columnNumber: 5
+    }, this);
+}
+_c1 = MedicineCard;
+var _c, _c1;
+$RefreshReg$(_c, "TimelineStep");
+$RefreshReg$(_c1, "MedicineCard");
+
+  $parcel$ReactRefreshHelpers$5c2c.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"hBUgL":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$5e30 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$5e30.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5e30.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>StatusBanner);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+const statusConfig = {
+    verified: {
+        className: "verified",
+        label: "Medicine Verified",
+        description: "This batch is authentic and approved.",
+        icon: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: "18",
+            height: "18",
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2.5",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                    d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+                }, void 0, false, {
+                    fileName: "components/StatusBanner.js",
+                    lineNumber: 11,
+                    columnNumber: 9
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                    d: "m9 12 2 2 4-4"
+                }, void 0, false, {
+                    fileName: "components/StatusBanner.js",
+                    lineNumber: 12,
+                    columnNumber: 9
+                }, undefined)
+            ]
+        }, void 0, true, {
+            fileName: "components/StatusBanner.js",
+            lineNumber: 9,
+            columnNumber: 7
+        }, undefined)
+    },
+    unverified: {
+        className: "unverified",
+        label: "Verification Failed",
+        description: "This batch could not be verified. Do not consume.",
+        icon: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: "18",
+            height: "18",
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2.5",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                    d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+                }, void 0, false, {
+                    fileName: "components/StatusBanner.js",
+                    lineNumber: 23,
+                    columnNumber: 9
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("line", {
+                    x1: "9",
+                    x2: "15",
+                    y1: "9",
+                    y2: "15"
+                }, void 0, false, {
+                    fileName: "components/StatusBanner.js",
+                    lineNumber: 24,
+                    columnNumber: 9
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("line", {
+                    x1: "15",
+                    x2: "9",
+                    y1: "9",
+                    y2: "15"
+                }, void 0, false, {
+                    fileName: "components/StatusBanner.js",
+                    lineNumber: 24,
+                    columnNumber: 46
+                }, undefined)
+            ]
+        }, void 0, true, {
+            fileName: "components/StatusBanner.js",
+            lineNumber: 21,
+            columnNumber: 7
+        }, undefined)
+    },
+    pending: {
+        className: "pending",
+        label: "Verification Pending",
+        description: "This batch is currently under review.",
+        icon: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: "18",
+            height: "18",
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2.5",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("circle", {
+                    cx: "12",
+                    cy: "12",
+                    r: "10"
+                }, void 0, false, {
+                    fileName: "components/StatusBanner.js",
+                    lineNumber: 35,
+                    columnNumber: 9
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("polyline", {
+                    points: "12 6 12 12 16 14"
+                }, void 0, false, {
+                    fileName: "components/StatusBanner.js",
+                    lineNumber: 35,
+                    columnNumber: 41
+                }, undefined)
+            ]
+        }, void 0, true, {
+            fileName: "components/StatusBanner.js",
+            lineNumber: 33,
+            columnNumber: 7
+        }, undefined)
+    }
+};
+function StatusBanner({ status }) {
+    const key = (status || "").toLowerCase();
+    const config = statusConfig[key] || {
+        className: "pending",
+        label: status || "Unknown",
+        description: "Status could not be determined.",
+        icon: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
+            xmlns: "http://www.w3.org/2000/svg",
+            width: "18",
+            height: "18",
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("circle", {
+                    cx: "12",
+                    cy: "12",
+                    r: "10"
+                }, void 0, false, {
+                    fileName: "components/StatusBanner.js",
+                    lineNumber: 50,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                    d: "M12 16v-4"
+                }, void 0, false, {
+                    fileName: "components/StatusBanner.js",
+                    lineNumber: 50,
+                    columnNumber: 41
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("path", {
+                    d: "M12 8h.01"
+                }, void 0, false, {
+                    fileName: "components/StatusBanner.js",
+                    lineNumber: 50,
+                    columnNumber: 62
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "components/StatusBanner.js",
+            lineNumber: 48,
+            columnNumber: 7
+        }, this)
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: `status-banner ${config.className}`,
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "status-icon",
+                children: config.icon
+            }, void 0, false, {
+                fileName: "components/StatusBanner.js",
+                lineNumber: 57,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        style: {
+                            fontWeight: 700
+                        },
+                        children: config.label
+                    }, void 0, false, {
+                        fileName: "components/StatusBanner.js",
+                        lineNumber: 59,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        style: {
+                            fontSize: 13,
+                            fontWeight: 400,
+                            opacity: 0.8,
+                            marginTop: 2
+                        },
+                        children: config.description
+                    }, void 0, false, {
+                        fileName: "components/StatusBanner.js",
+                        lineNumber: 60,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "components/StatusBanner.js",
+                lineNumber: 58,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "components/StatusBanner.js",
+        lineNumber: 56,
+        columnNumber: 5
+    }, this);
+}
+_c = StatusBanner;
+var _c;
+$RefreshReg$(_c, "StatusBanner");
+
+  $parcel$ReactRefreshHelpers$5e30.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"7g3a6":[function() {},{}]},["9QjKE","blcJa"], "blcJa", "parcelRequire9b77", {}, null, null, "http://localhost:1234")
 
 //# sourceMappingURL=frontend.cb65f72e.js.map
