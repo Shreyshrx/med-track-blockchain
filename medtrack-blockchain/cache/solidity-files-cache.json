@@ -36,6 +36,42 @@
       "artifacts": [
         "MedicineTracking"
       ]
+    },
+    "C:\\Users\\shekh\\MED-TRACK\\medtrack-blockchain\\contracts\\MedicineTracking.sol": {
+      "lastModificationDate": 1773515032422,
+      "contentHash": "75072d1e2d74e8316e56f0e87a8f1acf",
+      "sourceName": "contracts/MedicineTracking.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "MedicineTracking"
+      ]
     }
   }
 }

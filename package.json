@@ -1,0 +1,14 @@
+{
+  "name": "med-track",
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "scripts": {
+    "blockchain": "cd medtrack-blockchain && npx hardhat node",
+    "deploy": "cd medtrack-blockchain && npx hardhat run scripts/deploy.js --network localhost",
+    "backend": "cd backend && node server.js",
+    "frontend": "cd frontend && npm start",
+    "dev": "concurrently \"npm run blockchain\" \"npm run backend\" \"npm run frontend\""
+  }
+}

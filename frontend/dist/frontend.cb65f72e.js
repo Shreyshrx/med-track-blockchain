@@ -33943,7 +33943,7 @@ function StatusBanner({ status }) {
     const config = statusConfig[key] || {
         className: "pending",
         label: status || "Unknown",
-        description: "Status could not be determined.",
+        description: "Medicine verified on blockchain.",
         icon: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("svg", {
             xmlns: "http://www.w3.org/2000/svg",
             width: "18",

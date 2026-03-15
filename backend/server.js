@@ -3,6 +3,9 @@ const QRCode = require("qrcode");
 const cors = require("cors");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
+// Blockchain contract
+const contract = require("./blockchain/contract");
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -11,13 +14,7 @@ app.use(cors());
    Gemini AI Setup
 ================================ */
 
-const genAI = new GoogleGenerativeAI("YOURAIzaSyBfBYbsHvYsEa57DBrn8bGDeCN6c6QsK7M_GEMINI_API_KEY");
-
-/* ===============================
-   In-memory medicine storage
-================================ */
-
-let medicines = {};
+const genAI = new GoogleGenerativeAI("YOUR_GEMINI_API_KEY");
 
 /* ===============================
    Create Medicine Batch
@@ -25,27 +22,35 @@ let medicines = {};
 
 app.post("/createBatch", async (req, res) => {
 
-    const { batchId, name, manufacturer } = req.body;
+    try {
 
-    medicines[batchId] = {
-        batchId,
-        name,
-        manufacturer,
-        history: [
-            {
-                stage: "Manufactured",
-                location: manufacturer,
-                time: new Date().toLocaleString()
-            }
-        ]
-    };
+        const { batchId, name, manufacturer, expiryDate } = req.body;
 
-    const qr = await QRCode.toDataURL(batchId);
+        const tx = await contract.createBatch(
+            batchId,
+            name,
+            manufacturer,
+            expiryDate
+        );
 
-    res.json({
-        message: "Batch created",
-        qrCode: qr
-    });
+        await tx.wait();
+
+        const qr = await QRCode.toDataURL(batchId);
+
+        res.json({
+            message: "Batch stored on blockchain",
+            qrCode: qr
+        });
+
+    } catch (err) {
+
+        console.log(err);
+
+        res.json({
+            error: "Blockchain transaction failed"
+        });
+
+    }
 
 });
 
@@ -53,19 +58,74 @@ app.post("/createBatch", async (req, res) => {
    Verify Medicine
 ================================ */
 
-app.get("/verify/:batchId", (req, res) => {
+app.get("/verify/:batchId", async (req, res) => {
 
-    const batchId = req.params.batchId;
-    const med = medicines[batchId];
+    try {
 
-    if(!med){
-        return res.json({ status: "Fake or Unknown" });
+        const batchId = req.params.batchId;
+
+        const med = await contract.getMedicine(batchId);
+
+        // If medicine does not exist
+        if (!med || med[0] === "") {
+
+            return res.json({
+                status: "Fake or Unknown"
+            });
+
+        }
+
+        res.json({
+            status: "Authentic",
+            medicine: {
+                batchId: med[0],
+                name: med[1],
+                manufacturer: med[2],
+                expiryDate: med[3].toString(),
+                owner: med[4]
+            }
+        });
+
+    } catch (err) {
+
+        console.log(err);
+
+        res.json({
+            status: "Fake or Unknown"
+        });
+
     }
 
-    res.json({
-        status: "Authentic",
-        medicine: med
-    });
+});
+
+/* ===============================
+   Transfer Ownership
+================================ */
+
+app.post("/transfer", async (req, res) => {
+
+    try {
+
+        const { batchId, newOwner } = req.body;
+
+        const tx = await contract.transferMedicine(
+            batchId,
+            newOwner
+        );
+
+        await tx.wait();
+
+        res.json({
+            message: "Ownership transferred on blockchain"
+        });
+
+    } catch (err) {
+
+        res.json({
+            error: err.message
+        });
+
+    }
 
 });
 
@@ -73,9 +133,9 @@ app.get("/verify/:batchId", (req, res) => {
    AI Assistant Endpoint
 ================================ */
 
-app.post("/askAI", async (req,res)=>{
+app.post("/askAI", async (req, res) => {
 
-    try{
+    try {
 
         const { question, medicine } = req.body;
 
@@ -109,7 +169,7 @@ Explain clearly in simple language.
 
         res.json({ answer: text });
 
-    }catch(err){
+    } catch (err) {
 
         console.log("AI ERROR:", err);
 
@@ -121,31 +181,12 @@ Explain clearly in simple language.
 
 });
 
-app.post("/transfer", (req,res)=>{
-
-const { batchId, stage, location } = req.body;
-
-if(!medicines[batchId]){
-return res.json({message:"Batch not found"});
-}
-
-medicines[batchId].history.push({
-stage,
-location,
-time: new Date().toLocaleString()
-});
-
-res.json({
-message:"Transfer recorded",
-medicine: medicines[batchId]
-});
-
-});
-
 /* ===============================
    Start Server
 ================================ */
 
-app.listen(5000, ()=>{
+app.listen(5000, () => {
+
     console.log("Backend running on port 5000");
+
 });
